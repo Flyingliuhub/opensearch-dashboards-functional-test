@@ -102,7 +102,7 @@ export function dashboardSanityTests() {
       });
 
       after(() => {
-        miscUtils.removeSampleData();
+        // miscUtils.removeSampleData();
       });
 
       it('checking ecommerce dashboards displayed', () => {
