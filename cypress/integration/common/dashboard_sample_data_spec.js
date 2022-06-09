@@ -94,18 +94,6 @@ export function dashboardSanityTests() {
         // Check that Help menu is visable
         commonUI.checkElementExists('button[aria-label="Help menu"]', 1);
       });
-
-      it('dark mode settings display', () => {
-        // Check that dark mode settings is visable
-        miscUtils.visitPage('app/management/opensearch-dashboards/settings');
-        cy.get(
-          '[data-test-subj="advancedSetting-editField-theme:darkMode"]'
-        ).click();
-        cy.get('[data-test-subj="advancedSetting-saveButton"]').click({
-          force: true,
-        });
-        cy.reload();
-      });
     });
 
     describe('adding sample data', () => {
@@ -115,6 +103,21 @@ export function dashboardSanityTests() {
 
       after(() => {
         // miscUtils.removeSampleData();
+      });
+
+      it('changing advanced settings', () => {
+        // Check that dark mode settings is visable
+        miscUtils.visitPage('app/management/opensearch-dashboards/settings');
+        cy.get(
+          '[data-test-subj="advancedSetting-editField-theme:darkMode"]'
+        ).click();
+        cy.get('[data-test-subj="advancedSetting-editField-defaultRoute"]')
+          .clear()
+          .type('/app/dashboards#/view/edf84fe0-e1a0-11e7-b6d5-4dc382ef7f5b');
+        cy.get('[data-test-subj="advancedSetting-saveButton"]').click({
+          force: true,
+        });
+        cy.reload();
       });
 
       it('checking ecommerce dashboards displayed', () => {
